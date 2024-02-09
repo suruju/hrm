@@ -18,12 +18,12 @@
                     <span class="link-title">Dashboard</span>
                 </a>
             </li>
-            <li class="nav-item nav-category">web apps</li>
-            <li class="nav-item">
+            <li class="nav-item nav-category">Department & Staff</li>
+            {{-- <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" href="#emails" role="button"
                     aria-expanded="false" aria-controls="emails">
                     <i class="link-icon" data-feather="mail"></i>
-                    <span class="link-title">Email</span>
+                    <span class="link-title">Employee</span>
                     <i class="link-arrow" data-feather="chevron-down"></i>
                 </a>
                 <div class="collapse" id="emails">
@@ -39,17 +39,17 @@
                         </li>
                     </ul>
                 </div>
-            </li>
+            </li> --}}
             <li class="nav-item">
-                <a href="pages/apps/chat.html" class="nav-link">
-                    <i class="link-icon" data-feather="message-square"></i>
-                    <span class="link-title">Chat</span>
+                <a href="{{route('employee.list')}}" class="nav-link">
+                    <i class="link-icon" data-feather="users"></i>
+                    <span class="link-title">Employee</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="pages/apps/calendar.html" class="nav-link">
-                    <i class="link-icon" data-feather="calendar"></i>
-                    <span class="link-title">Calendar</span>
+                <a href="{{route('department.list')}}" class="nav-link">
+                    <i class="link-icon" data-feather="grid"></i>
+                    <span class="link-title">Department</span>
                 </a>
             </li>
             <li class="nav-item nav-category">Components</li>
