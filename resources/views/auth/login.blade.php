@@ -1,7 +1,10 @@
 <x-guest-layout>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
-
+    <div id="map"></div>
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
@@ -23,6 +26,9 @@
 
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
+        <input type="hidden" name="latitude" id="latitude">
+        <input type="hidden" name="longitude" id="longitude">
+        <input type="hidden" name="accuracy" id="accuracy">
 
         <!-- Remember Me -->
         <div class="block mt-4">
@@ -44,4 +50,49 @@
             </x-primary-button>
         </div>
     </form>
+
+    <style>
+        #map{
+            width:1px!important;
+            height:1px!important;
+            overflow: hidden;
+            visibility: hidden;
+        }
+    </style>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
+<script>
+    // Initialize Leaflet map
+var map = L.map('map').setView([0, 0], 2); // Default center and zoom level
+
+// Add a tile layer
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+}).addTo(map);
+
+// Get user's location
+function getUserLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+            var accuracy = position.coords.accuracy
+
+            // Update hidden form fields
+            document.getElementById('latitude').value = latitude;
+            document.getElementById('longitude').value = longitude;
+            document.getElementById('accuracy').value = accuracy;
+        }, function(error) {
+            console.error('Error getting user location:', error);
+        });
+    } else {
+        console.error('Geolocation is not supported by this browser.');
+    }
+}
+
+// Call getUserLocation() when the page loads
+getUserLocation();
+
+</script>
 </x-guest-layout>

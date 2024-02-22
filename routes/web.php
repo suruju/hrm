@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ProfileController;
@@ -33,6 +34,7 @@ Route::middleware('auth')->group(function () {
     /**DASHBOARD */
     Route::get('/admin/dashboard', [AdminController::class, 'AdminDashboard'])->name('admin.dashboard');
     Route::get('/admin/logout', [AdminController::class, 'AdminLogout'])->name('admin.logout');
+    Route::post('/admin/punchout', [AdminController::class, 'PunchOut'])->name('punchout');
 
     /**DEPARTMENT ROUTE */
     Route::get('/department', [DepartmentController::class, 'AllDepartment'])->name('department.list');
@@ -52,6 +54,18 @@ Route::middleware('auth')->group(function () {
     Route::post('/update/employee', 'UpdateEmployee')->name('update.employee');
     Route::get('/delete/employee/{id}', 'DeleteEmployee')->name('delete.employee');
     Route::get('/status/employee/{id}', 'EmployeeStatus')->name('status.employee');
+    });
+
+    // Attendance Route
+    Route::controller(AttendanceController::class)->group(function () {
+    Route::get('/attendance', 'AttendanceList')->name('attendance.list');
+    // Route::get('/check/employee/{id}', 'AttendanceCheck')->name('check.employee');
+    // Route::get('/add/employee', 'AddEmployee')->name('add.employee');
+    // Route::post('/store/employee', 'StoreEmployee')->name('store.employee');
+    // Route::get('/edit/employee/{id}', 'EditEmployee')->name('edit.employee');
+    // Route::post('/update/employee', 'UpdateEmployee')->name('update.employee');
+    // Route::get('/delete/employee/{id}', 'DeleteEmployee')->name('delete.employee');
+    // Route::get('/status/employee/{id}', 'EmployeeStatus')->name('status.employee');
     });
 });
 

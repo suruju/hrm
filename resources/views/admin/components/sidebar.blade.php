@@ -13,7 +13,7 @@
         <ul class="nav">
             <li class="nav-item nav-category">Main</li>
             <li class="nav-item">
-                <a href="dashboard.html" class="nav-link">
+                <a href="{{route('admin.dashboard')}}" class="nav-link">
                     <i class="link-icon" data-feather="box"></i>
                     <span class="link-title">Dashboard</span>
                 </a>
@@ -50,6 +50,12 @@
                 <a href="{{route('department.list')}}" class="nav-link">
                     <i class="link-icon" data-feather="grid"></i>
                     <span class="link-title">Department</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{route('attendance.list')}}" class="nav-link">
+                    <i class="link-icon" data-feather="trello"></i>
+                    <span class="link-title">Attendance</span>
                 </a>
             </li>
             <li class="nav-item nav-category">Components</li>

@@ -51,6 +51,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-8 ps-md-0">
+                                    <div id="map"></div>
                                     <div class="auth-form-wrapper px-4 py-5">
                                         <a href="#"
                                             class="noble-ui-logo logo-light d-block mb-2">Wishers<span>HRM</span></a>
@@ -73,6 +74,9 @@
                                                     Remember me
                                                 </label>
                                             </div>
+                                            <input type="hidden" name="latitude" id="latitude">
+                                            <input type="hidden" name="longitude" id="longitude">
+                                            <input type="hidden" name="accuracy" id="accuracy">
                                             <div>
                                                 <button type="submit"
                                                     class="btn btn-outline-primary btn-icon-text mb-2 mb-md-0">
@@ -92,6 +96,14 @@
             </div>
         </div>
     </div>
+    <style>
+        #map{
+            width:1px!important;
+            height:1px!important;
+            overflow: hidden;
+            visibility: hidden;
+        }
+    </style>
 
     <!-- core:js -->
     <script src="{{ asset('../assets/vendors/core/core.js') }}"></script>
@@ -107,6 +119,40 @@
 
     <!-- Custom js for this page -->
     <!-- End custom js for this page -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script>
+        // Initialize Leaflet map
+        var map = L.map('map').setView([0, 0], 2); // Default center and zoom level
+
+        // Add a tile layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Get user's location
+        function getUserLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var latitude = position.coords.latitude;
+                    var longitude = position.coords.longitude;
+                    var accuracy = position.coords.accuracy
+
+                    // Update hidden form fields
+                    document.getElementById('latitude').value = latitude;
+                    document.getElementById('longitude').value = longitude;
+                    document.getElementById('accuracy').value = accuracy;
+                }, function(error) {
+                    console.error('Error getting user location:', error);
+                });
+            } else {
+                console.error('Geolocation is not supported by this browser.');
+            }
+        }
+
+        // Call getUserLocation() when the page loads
+        getUserLocation();
+    </script>
 
 </body>
 

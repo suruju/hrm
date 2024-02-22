@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Auth;
 
+use App\Models\Attendance;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -39,12 +41,12 @@ class LoginRequest extends FormRequest
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function authenticate(): void
+    public function authenticate()
     {
         $this->ensureIsNotRateLimited();
 
         $user = User::where('email',$this->login)
-                ->orWhere('name',$this->login)
+                ->orWhere('username',$this->login)
                 ->orWhere('contactnumber',$this->login)
                 ->first();
 
@@ -54,6 +56,20 @@ class LoginRequest extends FormRequest
 
             throw ValidationException::withMessages([
                 'login' => trans('auth.failed'),
+            ]);
+        }
+        $currentDate = Carbon::now()->toDateString();
+        $currentTime = Carbon::now()->format('H:i:s');
+        $result = Attendance::where('date', $currentDate)->where('employee_id', $user->id)->first();
+        if(!$result){
+            Attendance::insert([
+                'employee_id' => $user->id,
+                'date' => $currentDate,
+                'in_time' => $currentTime,
+                'created_at' => now(),
+                'login_lgn'=> $this->longitude,
+                'login_lat'=> $this->latitude,
+                'login_accuracy'=>$this->accuracy,
             ]);
         }
         Auth::login($user,$this->boolean('remember'));

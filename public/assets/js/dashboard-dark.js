@@ -3,22 +3,7 @@ $(function() {
 
 
 
-  var colors = {
-    primary        : "#6571ff",
-    secondary      : "#7987a1",
-    success        : "#05a34a",
-    info           : "#66d1d1",
-    warning        : "#fbbc06",
-    danger         : "#ff3366",
-    light          : "#e9ecef",
-    dark           : "#060c17",
-    muted          : "#7987a1",
-    gridBorder     : "rgba(77, 138, 240, .15)",
-    bodyColor      : "#b8c3d9",
-    cardBg         : "#0c1427"
-  }
 
-  var fontFamily = "'Roboto', Helvetica, sans-serif"
 
   var revenueChartData = [
     49.33,
@@ -180,7 +165,7 @@ $(function() {
     "Apr 01 2022", "Apr 02 2022", "Apr 03 2022", "Apr 04 2022", "Apr 05 2022", "Apr 06 2022", "Apr 07 2022", "Apr 08 2022", "Apr 09 2022", "Apr 10 2022", "Apr 11 2022", "Apr 12 2022", "Apr 13 2022", "Apr 14 2022", "Apr 15 2022", "Apr 16 2022", "Apr 17 2022", "Apr 18 2022", "Apr 19 2022", "Apr 20 2022","Apr 21 2022", "Apr 22 2022", "Apr 23 2022", "Apr 24 2022", "Apr 25 2022", "Apr 26 2022", "Apr 27 2022", "Apr 28 2022", "Apr 29 2022", "Apr 30 2022",
     "May 01 2022", "May 02 2022", "May 03 2022", "May 04 2022", "May 05 2022", "May 06 2022", "May 07 2022", "May 08 2022", "May 09 2022", "May 10 2022", "May 11 2022", "May 12 2022", "May 13 2022", "May 14 2022", "May 15 2022", "May 16 2022", "May 17 2022", "May 18 2022", "May 19 2022", "May 20 2022","May 21 2022", "May 22 2022", "May 23 2022", "May 24 2022", "May 25 2022", "May 26 2022", "May 27 2022", "May 28 2022", "May 29 2022", "May 30 2022",
   ]
-  
+
 
 
 
@@ -506,10 +491,10 @@ $(function() {
       tooltip: {
         theme: 'light'
       },
-      colors: [colors.primary],  
+      colors: [colors.primary],
       fill: {
         opacity: .9
-      } , 
+      } ,
       grid: {
         padding: {
           bottom: -4
@@ -576,7 +561,7 @@ $(function() {
         },
       },
     }
-    
+
     var apexBarChart = new ApexCharts(document.querySelector("#monthlySalesChart"), options);
     apexBarChart.render();
   }
@@ -605,10 +590,10 @@ $(function() {
       tooltip: {
         theme: 'light'
       },
-      colors: [colors.primary],  
+      colors: [colors.primary],
       fill: {
         opacity: .9
-      } , 
+      } ,
       grid: {
         padding: {
           bottom: -4
@@ -681,7 +666,7 @@ $(function() {
         },
       },
     }
-    
+
     var apexBarChart = new ApexCharts(document.querySelector("#monthlySalesChartRTL"), options);
     apexBarChart.render();
   }
@@ -691,15 +676,39 @@ $(function() {
 
 
 
+
+
+
+
+});
+
+var colors = {
+    primary: "#6571ff",
+    secondary: "#7987a1",
+    success: "#05a34a",
+    info: "#66d1d1",
+    warning: "#fbbc06",
+    danger: "#ff3366",
+    light: "#e9ecef",
+    dark: "#060c17",
+    muted: "#7987a1",
+    gridBorder: "rgba(77, 138, 240, .15)",
+    bodyColor: "#b8c3d9",
+    cardBg: "#0c1427",
+};
+
+var fontFamily = "'Roboto', Helvetica, sans-serif";
+
   // Cloud Storage Chart
+  function workStat($count) {
   if ($('#storageChart').length) {
     var options = {
       chart: {
         height: 260,
         type: "radialBar"
       },
-      series: [67],
-      colors: [colors.primary],
+      series: $count,
+      colors: [colors.success],
       plotOptions: {
         radialBar: {
           hollow: {
@@ -711,7 +720,7 @@ $(function() {
             background: colors.dark,
             strokeWidth: '100%',
             opacity: 1,
-            margin: 5, 
+            margin: 5,
           },
           dataLabels: {
             showOn: "always",
@@ -735,13 +744,11 @@ $(function() {
       stroke: {
         lineCap: "round",
       },
-      labels: ["Storage Used"]
+      labels: ["Worked Hour"]
     };
-    
+
     var chart = new ApexCharts(document.querySelector("#storageChart"), options);
-    chart.render();    
+    chart.render();
   }
+}
   // Cloud Storage Chart - END
-
-
-});

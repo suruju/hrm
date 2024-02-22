@@ -42,4 +42,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    function getAttendance(){
+        return $this->hasMany(Attendance::class,'employee_id','id');
+    }
 }
